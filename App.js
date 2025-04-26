@@ -4,7 +4,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icons from './src/components/UI/Icons';
 
 //Screens IMPORTS
+//LOGIN
 import LoginLoginScreen from './src/components/screens/Login/LoginLoginScreen';
+import LoginSignUpScreen from './src/components/screens/Login/LoginSignUpScreen';
+
+//MAIN
 import UserProfileScreen from './src/components/screens/Main/Users/UserProfileScreen';
 import HomeScreen from './src/components/screens/Main/HomeScreen';
 import UserReviewsScreen from './src/components/screens/Main/Users/UserReviewsScreen';
@@ -28,6 +32,10 @@ export default function App() {
 				<Stack.Screen
 					name="LoginLoginScreen"
 					component={LoginLoginScreen}
+				/>
+				<Stack.Screen
+					name="LoginSignUpScreen"
+					component={LoginSignUpScreen}
 				/>
 				<Stack.Screen
 					name="MainAppTabs"

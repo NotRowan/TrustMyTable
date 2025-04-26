@@ -86,6 +86,12 @@ const Favorite = () => (
 		size={30}
 	/>
 );
+const Person = () => (
+	<MaterialIcons
+		name="person"
+		size={30}
+	/>
+);
 //Maybe add food-bank
 Icons.Add = Add;
 Icons.Cancel = Cancel;
@@ -101,4 +107,5 @@ Icons.GroupRemove = GroupRemove;
 Icons.Restaurant = Restaurant;
 Icons.Reviews = Reviews;
 Icons.Favorite = Favorite;
+Icons.Person = Person;
 export default Icons;

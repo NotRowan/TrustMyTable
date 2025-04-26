@@ -6,7 +6,7 @@ const Screen = ({ children }) => {
 	// Handlers ---------------------
 	// View -------------------------
 	return (
-		<SafeAreaView>
+		<SafeAreaView style={styles.screen}>
 			{children}
 			<StatusBar style="auto" />
 		</SafeAreaView>
@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
 	screen: {
 		flex: 1,
 		backgroundColor: '#fff',
+		paddingTop: 10,
 	},
 });
 

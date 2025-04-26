@@ -1,12 +1,15 @@
 import Form from '../../../UI/Form';
 import { useState } from 'react';
 import API from '../../../API/API';
+import { Alert } from 'react-native';
 
-const LoginLoginForm = ({ handleLogin }) => {
+const userLoginEndpoint = '/users/login';
+
+const LoginLoginForm = ({ handleLoginSuccess }) => {
 	// Initialisation ---------------
 	const defaultLogin = {
-		Username: null,
-		Password: null,
+		UserUserName: null,
+		UserPassword: null,
 	};
 	// State ------------------------
 	const [login, setLogin] = useState(defaultLogin);
@@ -15,36 +18,33 @@ const LoginLoginForm = ({ handleLogin }) => {
 		setLogin({ ...login, [field]: value });
 	};
 
-	const clickLogin = () => {
-		handleLogin();
-	};
-
-	const checkLogin = async () => {
-		const usernameEndpoint = `/users/username/${login.Username}`;
-		console.log(usernameEndpoint);
-		const result = await API.get(usernameEndpoint);
+	const checkLogin = async (userLogin) => {
+		const result = await API.post(userLoginEndpoint, userLogin);
 
 		if (result.isSuccess) {
-			console.log(result);
+			Alert.alert('Welcome back to Trust My Table!');
+			handleLoginSuccess(result.result);
 		} else {
-			console.log('User Does Not Exist');
+			Alert.alert('Failed to sign in');
 		}
 	};
 	// View -------------------------
 
 	return (
 		<Form
-			buttons={[{ label: 'Log in', icon: null, onClick: () => clickLogin() }]}
+			buttons={[
+				{ label: 'Log in', icon: null, onClick: () => checkLogin(login) },
+			]}
 		>
 			<Form.InputText
 				label="Username:"
-				value={login.Username}
-				onChange={(value) => handleChange('Username', value)}
+				value={login.UserUserName}
+				onChange={(value) => handleChange('UserUserName', value)}
 			/>
 			<Form.InputPassword
 				label="Password:"
-				value={login.Password}
-				onChange={(value) => handleChange('Password', value)}
+				value={login.UserPassword}
+				onChange={(value) => handleChange('UserPassword', value)}
 			/>
 		</Form>
 	);
