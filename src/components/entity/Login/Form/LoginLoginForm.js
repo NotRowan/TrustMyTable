@@ -22,10 +22,9 @@ const LoginLoginForm = ({ handleLoginSuccess }) => {
 		const result = await API.post(userLoginEndpoint, userLogin);
 
 		if (result.isSuccess) {
-			Alert.alert('Welcome back to Trust My Table!');
 			handleLoginSuccess(result.result);
 		} else {
-			Alert.alert('Failed to sign in');
+			Alert.alert('Incorrect Username or Password');
 		}
 	};
 	// View -------------------------

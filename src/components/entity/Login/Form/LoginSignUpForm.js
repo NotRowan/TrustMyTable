@@ -43,8 +43,8 @@ const LoginSignUpForm = ({ navigation }) => {
 	return (
 		<Form
 			buttons={[
-				{ label: 'Sign Up', icon: null, onClick: () => handleSignUp(User) },
 				{ label: 'Cancel', icon: null, onClick: () => handleCancelRedirect() },
+				{ label: 'Sign Up', icon: null, onClick: () => handleSignUp(User) },
 			]}
 		>
 			<Form.InputText

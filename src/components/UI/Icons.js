@@ -70,7 +70,7 @@ const Group = () => (
 );
 const Restaurant = () => (
 	<MaterialIcons
-		name="restaurant"
+		name="fastfood"
 		size={30}
 	/>
 );

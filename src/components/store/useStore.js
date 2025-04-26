@@ -1,20 +1,21 @@
 import { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const listeners = {}; // New: all hook instances will register a listener
+
 const useStore = (key, initialRecord) => {
-	//State
 	const [record, setRecord] = useState(initialRecord);
-	//Handlers
+
+	// Handlers
 	const loadRecord = async () => {
 		try {
 			const recoveredJSON = await AsyncStorage.getItem(key);
-
 			if (recoveredJSON != null) {
 				const record = JSON.parse(recoveredJSON);
 				setRecord(record);
 			}
 		} catch (error) {
-			Alert.alert('Error loading record');
+			console.log('Error loading record');
 		}
 	};
 
@@ -23,15 +24,32 @@ const useStore = (key, initialRecord) => {
 			const encodedRecord = JSON.stringify(newRecord);
 			await AsyncStorage.setItem(key, encodedRecord);
 			setRecord(newRecord);
+			// 🔥 New: broadcast update
+			if (listeners[key]) {
+				listeners[key].forEach((callback) => callback(newRecord));
+			}
 		} catch (error) {
-			Alert.alert('Error saving record');
+			console.log('Error saving record');
 		}
 	};
 
 	useEffect(() => {
 		loadRecord();
+		// Subscribe to future updates
+		if (!listeners[key]) {
+			listeners[key] = [];
+		}
+		const callback = (newRecord) => {
+			setRecord(newRecord);
+		};
+		listeners[key].push(callback);
+
+		return () => {
+			// Cleanup on unmount
+			listeners[key] = listeners[key].filter((cb) => cb !== callback);
+		};
 	}, []);
-	//Return
+
 	return [record, saveRecord];
 };
 
