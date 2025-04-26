@@ -24,7 +24,6 @@ const useStore = (key, initialRecord) => {
 			const encodedRecord = JSON.stringify(newRecord);
 			await AsyncStorage.setItem(key, encodedRecord);
 			setRecord(newRecord);
-			// 🔥 New: broadcast update
 			if (listeners[key]) {
 				listeners[key].forEach((callback) => callback(newRecord));
 			}
@@ -35,7 +34,6 @@ const useStore = (key, initialRecord) => {
 
 	useEffect(() => {
 		loadRecord();
-		// Subscribe to future updates
 		if (!listeners[key]) {
 			listeners[key] = [];
 		}
@@ -45,7 +43,6 @@ const useStore = (key, initialRecord) => {
 		listeners[key].push(callback);
 
 		return () => {
-			// Cleanup on unmount
 			listeners[key] = listeners[key].filter((cb) => cb !== callback);
 		};
 	}, []);

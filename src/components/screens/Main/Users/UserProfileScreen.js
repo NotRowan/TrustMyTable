@@ -1,10 +1,6 @@
 import Screen from '../../../layout/Screen';
 import { Text, View } from 'react-native';
-import { Pressable } from 'react-native';
 import useStore from '../../../store/useStore';
-import { useFocusEffect } from '@react-navigation/native';
-import { useEffect } from 'react';
-import { useCallback } from 'react';
 import UserProfile from '../../../entity/User/UserProfile';
 const UserProfileScreen = ({ navigation }) => {
 	// Initialisation ---------------
