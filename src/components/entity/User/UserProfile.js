@@ -1,15 +1,16 @@
 import { View, Text, Image, StyleSheet } from 'react-native';
 import UserProfileTabs from './Tabs/UserProfileTabs';
 import { NavigationIndependentTree } from '@react-navigation/native';
-import { ButtonTray, Button } from '../../UI/Button';
-const UserProfile = ({ user }) => {
+import { ButtonTray, Button, IconButton } from '../../UI/Button';
+import Icons from '../../UI/Icons';
+const UserProfile = ({ user, logoutUser }) => {
 	// Initialisation ---------------
 	console.log(user);
 	// State ------------------------
 	// Handlers ---------------------
 	// View -------------------------
 	return (
-		<View style={{ paddingTop: 80, flexDirection: 'column' }}>
+		<View style={{ paddingTop: 70, flexDirection: 'column' }}>
 			<View style={{ flexDirection: 'row', padding: 15 }}>
 				<Image
 					source={{
@@ -30,6 +31,11 @@ const UserProfile = ({ user }) => {
 						{user.UserFirstName} {user.UserLastName}
 					</Text>
 				</View>
+				<View style={{ marginLeft: 'auto' }}>
+					<ButtonTray>
+						<IconButton icon={Icons.BuildCircle} />
+					</ButtonTray>
+				</View>
 			</View>
 			<View>
 				<ButtonTray>
@@ -43,14 +49,14 @@ const UserProfile = ({ user }) => {
 					<Button
 						label="Logout"
 						onClick={() => {
-							console.log('Logout clicked');
+							logoutUser();
 						}}
 						styleButton={{ height: 5, padding: 12, backgroundColor: 'blue' }} // Optional: make logout button red
 						styleLabel={{ color: 'white' }}
 					/>
 				</ButtonTray>
 			</View>
-			<View style={{ flex: 1 }}>
+			<View style={{ height: 580 }}>
 				<NavigationIndependentTree>
 					<UserProfileTabs />
 				</NavigationIndependentTree>

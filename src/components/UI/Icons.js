@@ -92,6 +92,24 @@ const Person = () => (
 		size={30}
 	/>
 );
+const Feedback = () => {
+	<MaterialIcons
+		name="feedback"
+		size={30}
+	/>;
+};
+const Settings = () => {
+	<MaterialIcons
+		name="settings-suggest"
+		size={30}
+	/>;
+};
+const BuildCircle = () => (
+	<MaterialIcons
+		name="build-circle"
+		size={30}
+	/>
+);
 //Maybe add food-bank
 Icons.Add = Add;
 Icons.Cancel = Cancel;
@@ -108,4 +126,7 @@ Icons.Restaurant = Restaurant;
 Icons.Reviews = Reviews;
 Icons.Favorite = Favorite;
 Icons.Person = Person;
+Icons.Feedback = Feedback;
+Icons.Settings = Settings;
+Icons.BuildCircle = BuildCircle;
 export default Icons;

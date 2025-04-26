@@ -19,6 +19,21 @@ export const Button = ({ label, icon, onClick, styleLabel, styleButton }) => {
 	);
 };
 
+export const IconButton = ({ icon, onClick }) => {
+	// Initialisations ---------------------
+	// State -------------------------------
+	// Handlers ----------------------------
+	// View --------------------------------
+	return (
+		<Pressable
+			onPress={onClick}
+			style={buttonStyles.iconButton}
+		>
+			{icon}
+		</Pressable>
+	);
+};
+
 export const ButtonTray = ({ children }) => {
 	// Initialisations ---------------------
 	// State -------------------------------

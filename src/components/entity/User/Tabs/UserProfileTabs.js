@@ -7,18 +7,21 @@ const Tab = createMaterialTopTabNavigator();
 
 function UserProfileTabs() {
 	return (
-		<Tab.Navigator>
+		<Tab.Navigator screenOptions={{ tabBarShowLabel: false }}>
 			<Tab.Screen
 				name="Bio"
 				component={UserBio}
-			/>
-			<Tab.Screen
-				name="Favourites"
-				component={RestaurantList}
+				options={{ tabBarIcon: () => <Icons.Person /> }}
 			/>
 			<Tab.Screen
 				name="Reviews"
 				component={ReviewList}
+				options={{ tabBarIcon: () => <Icons.Reviews /> }}
+			/>
+			<Tab.Screen
+				name="Favourites"
+				component={RestaurantList}
+				options={{ tabBarIcon: () => <Icons.Favorite /> }}
 			/>
 		</Tab.Navigator>
 	);

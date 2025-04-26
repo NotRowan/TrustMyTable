@@ -17,7 +17,10 @@ const UserProfileScreen = ({ navigation }) => {
 		<Screen>
 			<View>
 				{loggedInUser ? (
-					<UserProfile user={loggedInUser} />
+					<UserProfile
+						user={loggedInUser}
+						logoutUser={handleLogout}
+					/>
 				) : (
 					<Text>Loading Profile</Text>
 				)}

@@ -5,8 +5,11 @@ const ReviewList = ({}) => {
 	// State ------------------------
 	// Handlers ---------------------
 	// View -------------------------
-	<View>
-		<Text>User Reviews</Text>
-	</View>;
+
+	return (
+		<View>
+			<Text>User Reviews</Text>
+		</View>
+	);
 };
 export default ReviewList;
