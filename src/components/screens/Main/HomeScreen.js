@@ -1,6 +1,6 @@
 import Screen from '../../layout/Screen';
 import { Text, View } from 'react-native';
-
+import RestaurantList from '../../entity/Restaurant/List/RestaurantList';
 const HomeScreen = ({}) => {
 	// Initialisation ---------------
 	// State ------------------------
@@ -9,7 +9,7 @@ const HomeScreen = ({}) => {
 	return (
 		<Screen>
 			<View>
-				<Text>HomeScreen</Text>
+				<RestaurantList />
 			</View>
 		</Screen>
 	);

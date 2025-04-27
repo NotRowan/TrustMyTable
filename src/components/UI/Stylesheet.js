@@ -160,12 +160,12 @@ export const activityStyles = StyleSheet.create({
 export const buttonStyles = StyleSheet.create({
 	buttonTray: {
 		flexDirection: 'row',
-		gap: 15,
+		gap: 1,
 		padding: 10,
 	},
 
 	button: {
-		minHeight: 50,
+		minHeight: 30,
 		borderWidth: 1,
 		borderRadius: 7,
 		borderColor: 'grey',
@@ -179,7 +179,8 @@ export const buttonStyles = StyleSheet.create({
 	},
 
 	label: {
-		fontSize: 16,
+		fontSize: 15,
+		fontWeight: 'bold',
 	},
 
 	addFriendButton: {

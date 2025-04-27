@@ -12,7 +12,7 @@ const UserProfile = ({ navigation, user, logoutUser }) => {
 	};
 	// View -------------------------
 	return (
-		<View style={{ paddingTop: 50, flexDirection: 'column' }}>
+		<View style={{ flexDirection: 'column' }}>
 			<View style={{ flexDirection: 'row', padding: 15 }}>
 				<Image
 					source={{
@@ -43,14 +43,12 @@ const UserProfile = ({ navigation, user, logoutUser }) => {
 						onClick={() => {
 							onClickEditRedirect();
 						}}
-						styleButton={{ height: 5 }}
 					/>
 					<Button
 						label="Logout"
 						onClick={() => {
 							logoutUser();
 						}}
-						styleButton={{ height: 5, padding: 12 }} // Optional: make logout button red
 					/>
 				</ButtonTray>
 			</View>

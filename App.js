@@ -54,6 +54,7 @@ export default function App() {
 	function TabGroup() {
 		return (
 			<Tab.Navigator
+				initialRouteName="HomeScreen"
 				screenOptions={{
 					headerShown: false,
 					unmountOnBlur: true,
