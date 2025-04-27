@@ -10,6 +10,14 @@ const UserProfile = ({ navigation, user, logoutUser }) => {
 	const onClickEditRedirect = () => {
 		navigation.navigate('UserEditProfileScreen');
 	};
+	const onClickRestaurantViewRedirect = () => {
+		const RestaurantRestaurantID = 1;
+		navigation.navigate('RestaurantViewScreen', { RestaurantRestaurantID });
+	};
+
+	const onClickAllergyProfileRedirect = () => {
+		navigation.navigate('AllergyProfileScreen');
+	};
 	// View -------------------------
 	return (
 		<View style={{ flexDirection: 'column' }}>
@@ -47,7 +55,7 @@ const UserProfile = ({ navigation, user, logoutUser }) => {
 					<Button
 						label="Logout"
 						onClick={() => {
-							logoutUser();
+							onClickAllergyProfileRedirect();
 						}}
 					/>
 				</ButtonTray>

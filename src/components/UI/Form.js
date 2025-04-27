@@ -1,9 +1,9 @@
 import { View, StyleSheet, Text, TextInput } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
-
+import { Switch } from 'react-native';
 import { Button, ButtonTray } from './Button';
 import { formStyles } from './Stylesheet';
-
+import StarRating from './StarRating';
 const Form = ({ children, buttons = [] }) => {
 	// Initialisation ---------------
 	// State ------------------------
@@ -108,6 +108,64 @@ const InputSelect = ({ label, prompt, options, value, onChange }) => {
 	);
 };
 
+const InputCheckbox = ({ label, value, onChange }) => {
+	return (
+		<View style={formStyles.item}>
+			<View style={styles.checkboxRow}>
+				<Switch
+					value={value}
+					onValueChange={onChange}
+				/>
+				<Text style={styles.checkboxLabel}>{label}</Text>
+			</View>
+		</View>
+	);
+};
+
+const InputCheckboxGroup = ({ label, options, selectedValues, onChange }) => {
+	// options = [{ label: 'Peanuts', value: 'peanuts' }, { label: 'Dairy', value: 'dairy' }]
+	// selectedValues = ['peanuts']
+
+	const toggleOption = (value) => {
+		if (selectedValues.includes(value)) {
+			// If already selected, remove it
+			onChange(selectedValues.filter((v) => v !== value));
+		} else {
+			// If not selected, add it
+			onChange([...selectedValues, value]);
+		}
+	};
+
+	return (
+		<View style={formStyles.item}>
+			<Text style={formStyles.itemlabel}>{label}</Text>
+			{options.map((option, index) => (
+				<View
+					key={index}
+					style={styles.checkboxRow}
+				>
+					<Switch
+						value={selectedValues.includes(option.value)}
+						onValueChange={() => toggleOption(option.value)}
+					/>
+					<Text style={styles.checkboxLabel}>{option.label}</Text>
+				</View>
+			))}
+		</View>
+	);
+};
+const StarRatingInput = ({ label, value, onChange, size = 30 }) => {
+	return (
+		<View style={styles.item}>
+			<Text style={styles.itemlabel}>{label}</Text>
+			<StarRating
+				value={value}
+				onChange={onChange}
+				size={size}
+			/>
+		</View>
+	);
+};
 const styles = StyleSheet.create({
 	formContainer: {
 		gap: 10,
@@ -154,9 +212,22 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		color: '#333',
 	},
+	checkboxRow: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		marginBottom: 5,
+		gap: 10,
+	},
+	checkboxLabel: {
+		fontSize: 16,
+		color: '#333',
+	},
 });
 Form.InputText = InputText;
 Form.InputSelect = InputSelect;
 Form.InputPassword = InputPassword;
 Form.InputDescription = InputDescription;
+Form.InputCheckbox = InputCheckbox;
+Form.InputCheckboxGroup = InputCheckboxGroup;
+Form.StarRatingInput = StarRatingInput;
 export default Form;

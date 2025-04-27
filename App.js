@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icons from './src/components/UI/Icons';
 import useStore from './src/components/store/useStore';
 import { Image } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 //Screens IMPORTS
 //LOGIN
 import LoginLoginScreen from './src/components/screens/Login/LoginLoginScreen';
@@ -15,6 +16,16 @@ import UserReviewsScreen from './src/components/screens/Main/Users/UserReviewsSc
 
 //USER
 import UserEditProfileScreen from './src/components/screens/Main/Users/UserEditProfileScreen';
+
+//RESTAURANT
+import RestaurantViewScreen from './src/components/screens/Main/Restaurants/RestaurantViewScreen';
+
+//ALLERGY
+import AllergyProfileScreen from './src/components/screens/Main/Allergies/AllergyProfileScreen';
+
+//REVIEW
+import ReviewCreateScreen from './src/components/screens/Main/Reviews/ReviewCreateScreen';
+
 export default function App() {
 	// Initialisation ---------------
 
@@ -28,24 +39,40 @@ export default function App() {
 				screenOptions={{
 					headerStyle: { backgroundColor: 'black' },
 					headerTintColor: 'white',
-					headerShown: false,
 				}}
 			>
 				<Stack.Screen
 					name="LoginLoginScreen"
 					component={LoginLoginScreen}
+					options={{ headerShown: false }}
 				/>
 				<Stack.Screen
 					name="LoginSignUpScreen"
 					component={LoginSignUpScreen}
+					options={{ headerShown: false }}
 				/>
 				<Stack.Screen
 					name="UserEditProfileScreen"
 					component={UserEditProfileScreen}
+					options={{ title: 'Edit Profile' }}
+				/>
+				<Stack.Screen
+					name="RestaurantViewScreen"
+					component={RestaurantViewScreen}
+					options={{ title: 'Restaurant' }}
 				/>
 				<Stack.Screen
 					name="MainAppTabs"
 					component={TabGroup}
+					options={{ headerShown: false }}
+				/>
+				<Stack.Screen
+					name="AllergyProfileScreen"
+					component={AllergyProfileScreen}
+				/>
+				<Stack.Screen
+					name="ReviewCreateScreen"
+					component={ReviewCreateScreen}
 				/>
 			</Stack.Navigator>
 		);
