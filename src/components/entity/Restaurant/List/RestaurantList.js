@@ -15,7 +15,6 @@ const RestaurantList = ({ user }) => {
 
 	useEffect(() => {
 		if (fetchedFavorites) {
-			// Remove duplicates (in case there are any)
 			const uniqueFavorites = fetchedFavorites.reduce((acc, current) => {
 				const x = acc.find(
 					(item) =>

@@ -10,7 +10,6 @@ const AllergyProfileScreen = ({ navigation }) => {
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		// You might want to add logic here to ensure user is loaded
 		setIsLoading(false);
 	}, [loggedInUser]);
 

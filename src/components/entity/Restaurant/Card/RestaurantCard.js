@@ -6,7 +6,6 @@ import Icons from '../../../UI/Icons';
 const RestaurantCard = ({ RestaurantName, RestaurantRestaurantImage }) => {
 	return (
 		<View style={styles.card}>
-			{/* Restaurant Image */}
 			<Image
 				source={{
 					uri:
@@ -16,7 +15,6 @@ const RestaurantCard = ({ RestaurantName, RestaurantRestaurantImage }) => {
 				style={styles.image}
 			/>
 
-			{/* Restaurant Info */}
 			<View style={styles.infoContainer}>
 				<Text style={styles.name}>{RestaurantName}</Text>
 				<View style={styles.ratingContainer}>
@@ -24,7 +22,6 @@ const RestaurantCard = ({ RestaurantName, RestaurantRestaurantImage }) => {
 				</View>
 			</View>
 
-			{/* Right Buttons */}
 			<View style={styles.buttonContainer}>
 				<ButtonTray>
 					<IconButton icon={<Icons.Reviews />} />
