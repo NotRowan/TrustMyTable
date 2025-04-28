@@ -2,6 +2,7 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 import { ButtonTray, Button, FloatingButton } from '../../UI/Button';
 import ReviewListUser from '../Reviews/List/ReviewListUser';
 import Icons from '../../UI/Icons';
+
 const UserProfile = ({ navigation, user, logoutUser }) => {
 	// Handlers ---------------------
 	const onClickEditRedirect = () => {
@@ -30,6 +31,11 @@ const UserProfile = ({ navigation, user, logoutUser }) => {
 						{user.UserFirstName} {user.UserLastName}
 					</Text>
 				</View>
+				<Button
+					label="Allergy Profile"
+					onClick={onClickAllergyProfileRedirect}
+					style={styles.allergyProfileButton}
+				/>
 			</View>
 
 			<View>
@@ -72,6 +78,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		marginBottom: 15,
+		justifyContent: 'space-between', // Aligns elements to the left and right
 	},
 	profileImage: {
 		width: 80,
@@ -106,6 +113,12 @@ const styles = StyleSheet.create({
 	bioText: {
 		fontSize: 14,
 		color: '#333',
+	},
+	allergyProfileButton: {
+		padding: 10,
+		backgroundColor: '#4CAF50',
+		color: '#fff',
+		borderRadius: 5,
 	},
 });
 
