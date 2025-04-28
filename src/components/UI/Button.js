@@ -60,6 +60,7 @@ export const FloatingButton = ({ icon, onPress, label }) => {
 		</Pressable>
 	);
 };
+
 export const ButtonTray = ({ children }) => {
 	// Initialisations ---------------------
 	// State -------------------------------

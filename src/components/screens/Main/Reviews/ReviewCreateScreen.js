@@ -8,12 +8,18 @@ const ReviewCreateScreen = ({ route, navigation }) => {
 	const [loggedInUser, setLoggedInUser] = useStore('user', null);
 	// State ------------------------
 	// Handlers ---------------------
+	const handleGoBack = () => {
+		navigation.pop(2);
+	};
 	// View -------------------------
 	return (
 		<Screen>
 			<View>
 				{loggedInUser ? (
-					<ReviewCreateForm RestaurantRestaurantID={RestaurantRestaurantID} />
+					<ReviewCreateForm
+						RestaurantRestaurantID={RestaurantRestaurantID}
+						handleGoBack={handleGoBack}
+					/>
 				) : (
 					<Text>Loading Profile</Text>
 				)}

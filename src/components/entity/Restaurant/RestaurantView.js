@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet, FlatList } from 'react-native';
 import useLoad from '../../API/useLoad';
 import ReviewCard from '../Reviews/Card/ReviewCard';
-import { ButtonTray, Button } from '../../UI/Button';
+import { ButtonTray, Button, IconButton } from '../../UI/Button';
+import Icons from '../../UI/Icons';
+import API from '../../API/API';
+import useStore from '../../store/useStore';
+const userFavouritesEndpoint = '/userfavourites/';
 
 const RestaurantView = ({ RestaurantRestaurantID, ReviewCreationRedirect }) => {
-	// State to store restaurant data
 	const [restaurant, setRestaurant] = useState(null);
-
-	// Fetch restaurant data
+	const [loggedInUser, setLoggedInUser] = useStore('user', null);
 	const [
 		restaurantData,
 		setRestaurantData,
@@ -16,38 +18,45 @@ const RestaurantView = ({ RestaurantRestaurantID, ReviewCreationRedirect }) => {
 		loadRestaurantData,
 	] = useLoad(`/restaurants/${RestaurantRestaurantID}`);
 
-	// Fetch reviews data
 	const [reviews, setReviews, isReviewsLoading, loadReviewsData] = useLoad(
 		`/userreviews/restaurant/${RestaurantRestaurantID}`
 	);
 
-	// Load data when the component mounts
 	useEffect(() => {
 		loadRestaurantData(`/restaurants/${RestaurantRestaurantID}`);
 		loadReviewsData(`/userreviews/restaurant/${RestaurantRestaurantID}`);
 	}, [RestaurantRestaurantID]);
 
-	// Handle restaurant data after it loads
 	useEffect(() => {
 		if (restaurantData && restaurantData.length > 0) {
-			setRestaurant(restaurantData[0]); // Set the first restaurant from the array
+			setRestaurant(restaurantData[0]);
 		}
 	}, [restaurantData]);
+	//Handler
+	const saveRestaurant = async (userID, RestaurantRestaurantID) => {
+		const data = {
+			UserUserID: userID,
+			RestaurantRestaurantID: RestaurantRestaurantID,
+		};
 
-	// Loading states
+		const result = await API.post(userFavouritesEndpoint, data);
+
+		if (result.isSuccess) {
+			console.log('Added to favourites');
+		} else {
+		}
+	};
+	//View
 	if (isRestaurantLoading || isReviewsLoading) {
 		return <Text>Loading...</Text>;
 	}
 
-	// Check if restaurant data is available
 	if (!restaurant) {
 		return <Text>Restaurant data not available</Text>;
 	}
 
-	// Header component for the FlatList
 	const renderHeader = () => (
 		<View style={styles.detailsContainer}>
-			{/* Restaurant Image */}
 			<Image
 				source={{
 					uri:
@@ -56,17 +65,16 @@ const RestaurantView = ({ RestaurantRestaurantID, ReviewCreationRedirect }) => {
 				}}
 				style={styles.image}
 			/>
-			{/* Restaurant Details */}
 			<Text style={styles.restaurantTitle}>
 				{restaurant.RestaurantName || 'Failed to load'}
 			</Text>
 			<Text style={styles.address}>
 				{restaurant.RestaurantRestaurantAddress || 'Address not available'}
 			</Text>
-			{/* Display opening times if available */}
 			{restaurant.RestaurantAllergenMenu ? (
 				<Text style={styles.openingTimes}>Opening Times:</Text>
 			) : null}
+
 			<ButtonTray>
 				<Button
 					label="Leave a review"
@@ -74,12 +82,21 @@ const RestaurantView = ({ RestaurantRestaurantID, ReviewCreationRedirect }) => {
 						ReviewCreationRedirect();
 					}}
 				/>
+				<IconButton
+					icon={<Icons.Favorite />}
+					onClick={() => {
+						saveRestaurant(loggedInUser.UserUserID, RestaurantRestaurantID);
+					}}
+				/>
 			</ButtonTray>
 		</View>
 	);
 
-	// Render each review as a ReviewCard component
-	const renderReview = ({ item }) => <ReviewCard review={item} />;
+	const renderReview = ({ item }) => (
+		<View style={styles.reviewCardWrapper}>
+			<ReviewCard review={item} />
+		</View>
+	);
 
 	return (
 		<FlatList
@@ -100,6 +117,7 @@ const styles = StyleSheet.create({
 		width: '100%',
 		height: 200,
 		resizeMode: 'cover',
+		borderRadius: 10,
 	},
 	detailsContainer: {
 		padding: 15,
@@ -116,6 +134,9 @@ const styles = StyleSheet.create({
 	openingTimes: {
 		fontSize: 14,
 		color: 'gray',
+	},
+	reviewCardWrapper: {
+		paddingHorizontal: 15,
 	},
 });
 

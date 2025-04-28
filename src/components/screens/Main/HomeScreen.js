@@ -13,10 +13,18 @@ const HomeScreen = ({ navigation }) => {
 			RestaurantRestaurantID: RestaurantRestaurantID,
 		});
 	};
+
+	const handleFavouriteRedirect = () => {
+		navigation.navigate('UserFavouritesScreen');
+	};
 	// View -------------------------
 	return (
 		<Screen>
 			<Map handleRestautantRedirect={handleRestautantRedirect} />
+			<FloatingButton
+				icon={<Icons.Favorite />}
+				onPress={() => handleFavouriteRedirect()}
+			/>
 		</Screen>
 	);
 };

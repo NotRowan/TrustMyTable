@@ -110,6 +110,12 @@ const BuildCircle = () => (
 		size={30}
 	/>
 );
+const Save = () => (
+	<MaterialIcons
+		name="save"
+		size={30}
+	/>
+);
 //Maybe add food-bank
 Icons.Add = Add;
 Icons.Cancel = Cancel;
@@ -129,4 +135,5 @@ Icons.Person = Person;
 Icons.Feedback = Feedback;
 Icons.Settings = Settings;
 Icons.BuildCircle = BuildCircle;
+Icons.Save = Save;
 export default Icons;

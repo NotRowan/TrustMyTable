@@ -16,7 +16,7 @@ import UserReviewsScreen from './src/components/screens/Main/Users/UserReviewsSc
 
 //USER
 import UserEditProfileScreen from './src/components/screens/Main/Users/UserEditProfileScreen';
-
+import UserFavouritesScreen from './src/components/screens/Main/Users/UserFavouritesScreen';
 //RESTAURANT
 import RestaurantViewScreen from './src/components/screens/Main/Restaurants/RestaurantViewScreen';
 
@@ -64,15 +64,22 @@ export default function App() {
 				<Stack.Screen
 					name="MainAppTabs"
 					component={TabGroup}
-					options={{ headerShown: false }}
+					options={{ headerShown: false, title: 'Home' }}
 				/>
 				<Stack.Screen
 					name="AllergyProfileScreen"
 					component={AllergyProfileScreen}
+					options={{ title: 'Allergy Profile' }}
 				/>
 				<Stack.Screen
 					name="ReviewCreateScreen"
 					component={ReviewCreateScreen}
+					options={{ title: 'Leave a review' }}
+				/>
+				<Stack.Screen
+					name="UserFavouritesScreen"
+					component={UserFavouritesScreen}
+					options={{ title: 'My Favourites' }}
 				/>
 			</Stack.Navigator>
 		);
@@ -87,14 +94,6 @@ export default function App() {
 					unmountOnBlur: true,
 				}}
 			>
-				<Tab.Screen
-					name="UserReviewsScreen"
-					component={UserReviewsScreen}
-					options={{
-						tabBarLabel: 'Feed',
-						tabBarIcon: () => <Icons.Reviews />,
-					}}
-				/>
 				<Tab.Screen
 					name="HomeScreen"
 					component={HomeScreen}

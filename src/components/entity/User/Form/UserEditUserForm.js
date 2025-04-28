@@ -14,6 +14,7 @@ const UserEditUserForm = ({ navigation }) => {
 		UserLastName: '',
 		UserEmail: '',
 		UserProfileImage: '',
+		UserUserBio: '',
 	};
 	// State ------------------------
 	const [loggedInUser, setLoggedInUser] = useStore('user', null);
@@ -36,6 +37,7 @@ const UserEditUserForm = ({ navigation }) => {
 
 	const handleEdit = async () => {
 		const result = await API.put(UserEndpoint + User.UserUserID, User);
+
 		if (result.isSuccess) {
 			setLoggedInUser({ ...User });
 			handleEditRedirect();
@@ -68,6 +70,11 @@ const UserEditUserForm = ({ navigation }) => {
 				label="Email:"
 				value={User.UserEmail}
 				onChange={(value) => handleChange('UserEmail', value)}
+			/>
+			<Form.InputDescription
+				label="Bio:"
+				value={User.UserUserBio}
+				onChange={(value) => handleChange('UserUserBio', value)}
 			/>
 			<Form.InputText
 				label="Profile Image:"

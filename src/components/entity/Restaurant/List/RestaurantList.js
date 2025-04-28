@@ -3,31 +3,46 @@ import useLoad from '../../../API/useLoad';
 import { useEffect, useState } from 'react';
 import { defaultStyles } from '../../../UI/Stylesheet';
 import RestaurantCard from '../Card/RestaurantCard';
-const restaurantEndpoint = '/restaurants';
 
-const RestaurantList = ({}) => {
+const RestaurantList = ({ user }) => {
 	// Initialisation ---------------
-	const [fetchedRestaurants, , isLoadingRestaurants, loadRestaurants] =
-		useLoad(restaurantEndpoint);
+	const favoritesEndpoint = `/userfavourites/user/${user.UserUserID}`;
+	const [fetchedFavorites, , isLoadingFavorites, loadFavorites] =
+		useLoad(favoritesEndpoint);
+
 	// State ------------------------
-	const [restaurants, setRestaurants] = useState([]);
+	const [favoriteRestaurants, setFavoriteRestaurants] = useState([]);
 
 	useEffect(() => {
-		setRestaurants(fetchedRestaurants || []);
-	}, [fetchedRestaurants]);
+		if (fetchedFavorites) {
+			// Remove duplicates (in case there are any)
+			const uniqueFavorites = fetchedFavorites.reduce((acc, current) => {
+				const x = acc.find(
+					(item) =>
+						item.RestaurantRestaurantID === current.RestaurantRestaurantID
+				);
+				if (!x) {
+					return acc.concat([current]);
+				} else {
+					return acc;
+				}
+			}, []);
+			setFavoriteRestaurants(uniqueFavorites);
+		}
+	}, [fetchedFavorites]);
+
 	// Handlers ---------------------
-	console.log(restaurants);
 	// View -------------------------
 	return (
 		<View style={defaultStyles.container}>
-			{isLoadingRestaurants ? (
+			{isLoadingFavorites ? (
 				<ActivityIndicator
 					size="large"
 					color="#007AFF"
 				/>
-			) : restaurants.length > 0 ? (
+			) : favoriteRestaurants.length > 0 ? (
 				<FlatList
-					data={restaurants}
+					data={favoriteRestaurants}
 					keyExtractor={(item) => item.RestaurantRestaurantID.toString()}
 					renderItem={({ item }) => (
 						<View style={defaultStyles.cardContainer}>
@@ -39,7 +54,7 @@ const RestaurantList = ({}) => {
 					)}
 				/>
 			) : (
-				<Text>No restaurants found.</Text>
+				<Text>No favorite restaurants found.</Text>
 			)}
 		</View>
 	);

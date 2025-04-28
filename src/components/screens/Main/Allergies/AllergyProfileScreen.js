@@ -5,7 +5,7 @@ import useStore from '../../../store/useStore';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 
-const AllergyProfileScreen = ({}) => {
+const AllergyProfileScreen = ({ navigation }) => {
 	const [loggedInUser, setLoggedInUser] = useStore('user', null);
 	const [isLoading, setIsLoading] = useState(true);
 
@@ -14,6 +14,9 @@ const AllergyProfileScreen = ({}) => {
 		setIsLoading(false);
 	}, [loggedInUser]);
 
+	const goBackAllergyProfile = () => {
+		navigation.pop(1);
+	};
 	if (isLoading || !loggedInUser) {
 		return (
 			<Screen>
@@ -29,7 +32,10 @@ const AllergyProfileScreen = ({}) => {
 	return (
 		<Screen>
 			<ScrollView style={{ flex: 1 }}>
-				<AllergyForm loggedInUser={loggedInUser} />
+				<AllergyForm
+					loggedInUser={loggedInUser}
+					goBackAllergyProfile={goBackAllergyProfile}
+				/>
 			</ScrollView>
 		</Screen>
 	);

@@ -7,7 +7,7 @@ import API from '../../../API/API';
 const allergyEndpoint = '/allergies';
 const allergyProfileEndpoint = '/allergyprofiles';
 
-const AllergyForm = ({ loggedInUser }) => {
+const AllergyForm = ({ loggedInUser, goBackAllergyProfile }) => {
 	// State initialization
 	const [fetchedAllergies, , isLoadingAllergies] = useLoad(allergyEndpoint);
 	const [fetchedAllergyProfiles, , isLoadingProfiles, loadAllergyProfiles] =
@@ -40,17 +40,10 @@ const AllergyForm = ({ loggedInUser }) => {
 		}
 
 		try {
-			console.log('Starting allergy update process...');
-			console.log('User ID:', loggedInUser.UserUserID);
-			console.log('Allergies to add:', selectedAllergies);
-
-			// 1. First delete existing allergies
-			console.log('Making DELETE request...');
+			// Delete existing allergy profiles
 			const deleteResponse = await API.delete(
 				`${allergyProfileEndpoint}/user/${loggedInUser.UserUserID}`
 			);
-
-			console.log('DELETE response:', deleteResponse);
 
 			if (!deleteResponse.isSuccess) {
 				throw new Error(
@@ -58,31 +51,28 @@ const AllergyForm = ({ loggedInUser }) => {
 				);
 			}
 
-			// 2. Then add new allergies (only if selectedAllergies has items)
+			// If no allergies are selected, just finish
 			if (!selectedAllergies || selectedAllergies.length === 0) {
-				console.log('No allergies selected, skipping POST');
 				Alert.alert('Success', 'All allergies removed successfully');
+				goBackAllergyProfile();
 				return;
 			}
 
-			console.log('Making POST request...');
+			// Post new allergy profiles
 			const postResponse = await API.post(allergyProfileEndpoint, {
 				UserUserID: loggedInUser.UserUserID,
 				allergies: selectedAllergies,
 				severity: null,
 			});
 
-			console.log('POST response:', postResponse);
-
 			if (postResponse.isSuccess) {
-				Alert.alert('Success', 'Allergies updated successfully');
+				goBackAllergyProfile();
 			} else {
 				throw new Error(
 					postResponse.error?.message || 'Failed to save new allergens'
 				);
 			}
 		} catch (error) {
-			console.error('Error in submitAllergies:', error);
 			Alert.alert(
 				'Error',
 				error.message || 'An unexpected error occurred while updating allergies'
